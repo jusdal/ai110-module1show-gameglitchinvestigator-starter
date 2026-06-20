@@ -46,18 +46,38 @@
 **Prompt used:**
 
 ```
-<!-- Paste the prompt you gave the AI -->
+Add professional docstrings to every function in logic_utils.py
+(Args/Returns style), then run pycodestyle and fix any PEP 8
+violations without changing behavior. Show me the linter output
+before and after.
 ```
 
 **Linting output before:**
 
 ```
-<!-- Paste relevant linter warnings/errors -->
+$ python -m pycodestyle logic_utils.py
+logic_utils.py:1:80: E501 line too long (82 > 79 characters)
+logic_utils.py:38:1: E265 block comment should start with '# '
+logic_utils.py:38:80: E501 line too long (128 > 79 characters)
 ```
+
+**Linting output after:**
+
+```
+$ python -m pycodestyle logic_utils.py
+$ echo $?
+0
+```
+
+(No output and exit code 0 means zero PEP 8 violations.)
 
 **Changes applied:**
 
-<!-- Describe what you changed based on the AI's suggestions -->
+- **Module docstring:** the AI suggested replacing the over-length top-of-file `# FIX:` comment (E501) with a proper module docstring describing the file's purpose. Applied.
+- **Comment style (E265):** the inline `#FIX:` provenance comment above `check_guess` was missing the space after `#` and ran to 128 characters. The AI suggested folding that note into the function's docstring instead of keeping a long block comment. Applied.
+- **Professional docstrings:** expanded every function's docstring to an Args/Returns format (`get_range_for_difficulty`, `parse_guess`, `check_guess`, `is_in_range`, `update_score`). Applied.
+- **Type hints:** the AI initially dropped the existing parameter type hints; I asked it to keep them since they pair well with the docstrings, so `: str` / `: int` annotations were restored and also added to `is_in_range`. (Manual correction.)
+- Verified the refactor was behavior-preserving by re-running `pytest` — all 18 tests still pass.
 
 ---
 
