@@ -33,11 +33,11 @@ It wrote the code, ran away, and now the game is unplayable.
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Launch the app and start on **Normal** difficulty — guess a number between 1 and 100, with 8 attempts allowed.
+2. Enter a guess of `40` and submit (pressing Enter now works); the game returns "📈 Go HIGHER!" because the guess is too low.
+3. Enter `70` → the game returns "📉 Go LOWER!" because the guess is too high — the hints now point in the correct direction.
+4. After each guess the secret number stays fixed and the score and "Attempts left" counter update correctly.
+5. Enter the correct number → the game shows "🎉 Correct!", celebrates with balloons, and ends; click **New Game 🔁** to reset and play again.
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
