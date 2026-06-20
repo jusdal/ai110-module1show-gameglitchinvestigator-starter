@@ -2,7 +2,12 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from logic_utils import check_guess, get_range_for_difficulty, parse_guess
+from logic_utils import (
+    check_guess,
+    get_range_for_difficulty,
+    is_in_range,
+    parse_guess,
+)
 
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win
@@ -100,3 +105,24 @@ def test_parse_guess_rejects_whitespace():
     assert ok is False
     assert value is None
     assert err == "That is not a number."
+
+
+def test_is_in_range_accepts_value_inside_range():
+    # A guess within the inclusive range is valid.
+    assert is_in_range(50, 1, 100) is True
+
+
+def test_is_in_range_accepts_boundaries():
+    # The low and high bounds themselves are in range (inclusive).
+    assert is_in_range(1, 1, 100) is True
+    assert is_in_range(100, 1, 100) is True
+
+
+def test_is_in_range_rejects_negative():
+    # A negative guess is out of range and should be rejected.
+    assert is_in_range(-5, 1, 100) is False
+
+
+def test_is_in_range_rejects_value_above_range():
+    # A guess above the high bound is out of range.
+    assert is_in_range(200, 1, 100) is False

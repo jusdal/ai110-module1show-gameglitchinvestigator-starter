@@ -4,6 +4,7 @@ import streamlit as st
 from logic_utils import (
     check_guess,
     get_range_for_difficulty,
+    is_in_range,
     parse_guess,
     update_score,
 )
@@ -104,14 +105,20 @@ if st.session_state.status != "playing":
     st.stop()
 
 if submit:
-    st.session_state.attempts += 1
-
     ok, guess_int, err = parse_guess(raw_guess)
 
     if not ok:
+        #FIX: Invalid (non-numeric/empty) input is rejected without
+        # consuming an attempt — only a legal, in-range guess costs a turn.
         st.session_state.history.append(raw_guess)
         st.error(err)
+    elif not is_in_range(guess_int, low, high):
+        #FIX: Out-of-range guesses (e.g. negatives or numbers above the
+        # range) are rejected without consuming an attempt — a friendlier
+        # UX than silently wasting a turn on an impossible guess.
+        st.warning(f"Out of range — guess between {low} and {high}.")
     else:
+        st.session_state.attempts += 1
         st.session_state.history.append(guess_int)
 
         if st.session_state.attempts % 2 == 0:

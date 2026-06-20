@@ -61,24 +61,28 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 $ python -m pytest tests/ -v
 ============================= test session starts ==============================
 platform darwin -- Python 3.13.7, pytest-9.0.3, pluggy-1.6.0
-collected 14 items
+collected 18 items
 
-tests/test_game_logic.py::test_winning_guess PASSED                      [  7%]
-tests/test_game_logic.py::test_guess_too_high PASSED                     [ 14%]
-tests/test_game_logic.py::test_guess_too_low PASSED                      [ 21%]
-tests/test_game_logic.py::test_hint_message_when_guess_too_high PASSED   [ 28%]
-tests/test_game_logic.py::test_hint_message_when_guess_too_low PASSED    [ 35%]
-tests/test_game_logic.py::test_easy_difficulty_range PASSED              [ 42%]
-tests/test_game_logic.py::test_normal_difficulty_range PASSED            [ 50%]
-tests/test_game_logic.py::test_hard_difficulty_range PASSED              [ 57%]
-tests/test_game_logic.py::test_parse_guess_rejects_non_numeric_string PASSED [ 64%]
-tests/test_game_logic.py::test_parse_guess_rejects_empty_string PASSED   [ 71%]
-tests/test_game_logic.py::test_parse_guess_rejects_none PASSED           [ 78%]
-tests/test_game_logic.py::test_parse_guess_accepts_negative_number PASSED [ 85%]
-tests/test_game_logic.py::test_parse_guess_truncates_float_string PASSED [ 92%]
-tests/test_game_logic.py::test_parse_guess_rejects_whitespace PASSED     [100%]
+tests/test_game_logic.py::test_winning_guess PASSED                      [  5%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 11%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 16%]
+tests/test_game_logic.py::test_hint_message_when_guess_too_high PASSED   [ 22%]
+tests/test_game_logic.py::test_hint_message_when_guess_too_low PASSED    [ 27%]
+tests/test_game_logic.py::test_easy_difficulty_range PASSED              [ 33%]
+tests/test_game_logic.py::test_normal_difficulty_range PASSED            [ 38%]
+tests/test_game_logic.py::test_hard_difficulty_range PASSED              [ 44%]
+tests/test_game_logic.py::test_parse_guess_rejects_non_numeric_string PASSED [ 50%]
+tests/test_game_logic.py::test_parse_guess_rejects_empty_string PASSED   [ 55%]
+tests/test_game_logic.py::test_parse_guess_rejects_none PASSED           [ 61%]
+tests/test_game_logic.py::test_parse_guess_accepts_negative_number PASSED [ 66%]
+tests/test_game_logic.py::test_parse_guess_truncates_float_string PASSED [ 72%]
+tests/test_game_logic.py::test_parse_guess_rejects_whitespace PASSED     [ 77%]
+tests/test_game_logic.py::test_is_in_range_accepts_value_inside_range PASSED [ 83%]
+tests/test_game_logic.py::test_is_in_range_accepts_boundaries PASSED     [ 88%]
+tests/test_game_logic.py::test_is_in_range_rejects_negative PASSED       [ 94%]
+tests/test_game_logic.py::test_is_in_range_rejects_value_above_range PASSED [100%]
 
-============================== 14 passed in 0.02s ===============================
+============================== 18 passed in 0.02s ===============================
 ```
 
 ## 🚀 Stretch Features
