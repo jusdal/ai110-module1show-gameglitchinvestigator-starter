@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from logic_utils import check_guess, get_range_for_difficulty
+from logic_utils import check_guess, get_range_for_difficulty, parse_guess
 
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win
@@ -50,3 +50,53 @@ def test_hard_difficulty_range():
     low, high = get_range_for_difficulty("Hard")
     assert low == 1
     assert high == 50
+
+
+# --- Edge-case tests for parse_guess (Stretch Feature SF7) ---
+
+def test_parse_guess_rejects_non_numeric_string():
+    # Letters are not a valid guess and must be rejected with an error.
+    ok, value, err = parse_guess("abc")
+    assert ok is False
+    assert value is None
+    assert err == "That is not a number."
+
+
+def test_parse_guess_rejects_empty_string():
+    # An empty submission should be rejected, not crash or count as 0.
+    ok, value, err = parse_guess("")
+    assert ok is False
+    assert value is None
+    assert err == "Enter a guess."
+
+
+def test_parse_guess_rejects_none():
+    # A missing/None input should be handled gracefully, not raise.
+    ok, value, err = parse_guess(None)
+    assert ok is False
+    assert value is None
+    assert err == "Enter a guess."
+
+
+def test_parse_guess_accepts_negative_number():
+    # Negative numbers parse to a valid int (range checking happens elsewhere).
+    ok, value, err = parse_guess("-5")
+    assert ok is True
+    assert value == -5
+    assert err is None
+
+
+def test_parse_guess_truncates_float_string():
+    # A float-like string should be accepted and truncated to an int.
+    ok, value, err = parse_guess("3.7")
+    assert ok is True
+    assert value == 3
+    assert err is None
+
+
+def test_parse_guess_rejects_whitespace():
+    # Whitespace-only input is not a number and must be rejected.
+    ok, value, err = parse_guess("   ")
+    assert ok is False
+    assert value is None
+    assert err == "That is not a number."
