@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from logic_utils import (
     check_guess,
+    describe_guess,
     get_range_for_difficulty,
     is_in_range,
     parse_guess,
@@ -126,3 +127,25 @@ def test_is_in_range_rejects_negative():
 def test_is_in_range_rejects_value_above_range():
     # A guess above the high bound is out of range.
     assert is_in_range(200, 1, 100) is False
+
+
+# --- Guess History display tests (Stretch Feature SF8) ---
+
+def test_describe_guess_too_low_shows_higher_hint():
+    # A past low guess should be annotated with the "go higher" hint.
+    assert describe_guess(40, 50) == "40 — 📈 Go HIGHER!"
+
+
+def test_describe_guess_too_high_shows_lower_hint():
+    # A past high guess should be annotated with the "go lower" hint.
+    assert describe_guess(60, 50) == "60 — 📉 Go LOWER!"
+
+
+def test_describe_guess_correct_shows_win_marker():
+    # A past winning guess should be annotated as correct.
+    assert describe_guess(50, 50) == "50 — 🎉 Correct!"
+
+
+def test_describe_guess_invalid_entry_flagged():
+    # Non-integer history entries (rejected input) are flagged invalid.
+    assert describe_guess("abc", 50) == "abc — ⚠️ invalid"

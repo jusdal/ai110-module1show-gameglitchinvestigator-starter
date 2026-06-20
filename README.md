@@ -61,30 +61,35 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 $ python -m pytest tests/ -v
 ============================= test session starts ==============================
 platform darwin -- Python 3.13.7, pytest-9.0.3, pluggy-1.6.0
-collected 18 items
+collected 22 items
 
-tests/test_game_logic.py::test_winning_guess PASSED                      [  5%]
-tests/test_game_logic.py::test_guess_too_high PASSED                     [ 11%]
-tests/test_game_logic.py::test_guess_too_low PASSED                      [ 16%]
-tests/test_game_logic.py::test_hint_message_when_guess_too_high PASSED   [ 22%]
-tests/test_game_logic.py::test_hint_message_when_guess_too_low PASSED    [ 27%]
-tests/test_game_logic.py::test_easy_difficulty_range PASSED              [ 33%]
-tests/test_game_logic.py::test_normal_difficulty_range PASSED            [ 38%]
-tests/test_game_logic.py::test_hard_difficulty_range PASSED              [ 44%]
-tests/test_game_logic.py::test_parse_guess_rejects_non_numeric_string PASSED [ 50%]
-tests/test_game_logic.py::test_parse_guess_rejects_empty_string PASSED   [ 55%]
-tests/test_game_logic.py::test_parse_guess_rejects_none PASSED           [ 61%]
-tests/test_game_logic.py::test_parse_guess_accepts_negative_number PASSED [ 66%]
-tests/test_game_logic.py::test_parse_guess_truncates_float_string PASSED [ 72%]
-tests/test_game_logic.py::test_parse_guess_rejects_whitespace PASSED     [ 77%]
-tests/test_game_logic.py::test_is_in_range_accepts_value_inside_range PASSED [ 83%]
-tests/test_game_logic.py::test_is_in_range_accepts_boundaries PASSED     [ 88%]
-tests/test_game_logic.py::test_is_in_range_rejects_negative PASSED       [ 94%]
-tests/test_game_logic.py::test_is_in_range_rejects_value_above_range PASSED [100%]
+tests/test_game_logic.py::test_winning_guess PASSED                      [  4%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [  9%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 13%]
+tests/test_game_logic.py::test_hint_message_when_guess_too_high PASSED   [ 18%]
+tests/test_game_logic.py::test_hint_message_when_guess_too_low PASSED    [ 22%]
+tests/test_game_logic.py::test_easy_difficulty_range PASSED              [ 27%]
+tests/test_game_logic.py::test_normal_difficulty_range PASSED            [ 31%]
+tests/test_game_logic.py::test_hard_difficulty_range PASSED              [ 36%]
+tests/test_game_logic.py::test_parse_guess_rejects_non_numeric_string PASSED [ 40%]
+tests/test_game_logic.py::test_parse_guess_rejects_empty_string PASSED   [ 45%]
+tests/test_game_logic.py::test_parse_guess_rejects_none PASSED           [ 50%]
+tests/test_game_logic.py::test_parse_guess_accepts_negative_number PASSED [ 54%]
+tests/test_game_logic.py::test_parse_guess_truncates_float_string PASSED [ 59%]
+tests/test_game_logic.py::test_parse_guess_rejects_whitespace PASSED     [ 63%]
+tests/test_game_logic.py::test_is_in_range_accepts_value_inside_range PASSED [ 68%]
+tests/test_game_logic.py::test_is_in_range_accepts_boundaries PASSED     [ 72%]
+tests/test_game_logic.py::test_is_in_range_rejects_negative PASSED       [ 77%]
+tests/test_game_logic.py::test_is_in_range_rejects_value_above_range PASSED [ 81%]
+tests/test_game_logic.py::test_describe_guess_too_low_shows_higher_hint PASSED [ 86%]
+tests/test_game_logic.py::test_describe_guess_too_high_shows_lower_hint PASSED [ 90%]
+tests/test_game_logic.py::test_describe_guess_correct_shows_win_marker PASSED [ 95%]
+tests/test_game_logic.py::test_describe_guess_invalid_entry_flagged PASSED [100%]
 
-============================== 18 passed in 0.02s ===============================
+============================== 22 passed in 0.02s ===============================
 ```
 
 ## 🚀 Stretch Features
 
+- **Guess History sidebar (Agent Mode, SF8):** the sidebar shows every guess made this game as a numbered list, each annotated with the hint it earned (📈 higher / 📉 lower / 🎉 correct), and flags rejected input as invalid. Implemented via `describe_guess` in `logic_utils.py` and rendered in `app.py`. See the "Agent Workflow" section of `ai_interactions.md`.
 - [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]

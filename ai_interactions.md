@@ -10,15 +10,21 @@
 
 **What task did you give the agent?**
 
-<!-- Describe the goal you asked the agent to accomplish -->
+Add a "Guess History" sidebar feature: display every guess the player has made this game, in order, each annotated with the hint it earned (too high / too low / correct), and clearly flag any rejected/invalid entries. Keep the logic testable and PEP 8 compliant.
 
 **What did the agent do?**
 
-<!-- List the steps the agent took (files edited, commands run, etc.) -->
+- **Files modified:** `logic_utils.py`, `app.py`, `tests/test_game_logic.py`, `README.md`, and this file.
+- Added a pure, testable helper `describe_guess(guess, secret)` to `logic_utils.py` that reuses the existing `check_guess` to annotate an integer guess with its hint, and flags non-integer entries as invalid.
+- Rendered the history in the Streamlit sidebar (`st.sidebar`) as a numbered list, placed **after** the submit handler so it includes the guess made on the current rerun, with a "No guesses yet." empty state.
+- Added 4 unit tests for `describe_guess` (too low, too high, correct, invalid entry).
+- Ran `pycodestyle` and `pytest` to confirm style and behavior.
 
 **What did you have to verify or fix manually?**
 
-<!-- Describe anything the agent got wrong or that required human review -->
+- **Rerun ordering:** the agent's first placement put the sidebar near the top of the script, which showed stale history (missing the just-submitted guess) because Streamlit runs top-to-bottom. I had it moved below the submit handler so the latest guess appears immediately.
+- **PEP 8:** the agent's sidebar list line was 81 chars (over the 79 limit); I had it refactor the `describe_guess(...)` call into a `summary` variable to stay compliant.
+- Verified the feature end-to-end: all 22 tests pass and `pycodestyle logic_utils.py` is clean.
 
 ---
 

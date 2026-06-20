@@ -3,6 +3,7 @@ import streamlit as st
 
 from logic_utils import (
     check_guess,
+    describe_guess,
     get_range_for_difficulty,
     is_in_range,
     parse_guess,
@@ -152,6 +153,17 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+
+# Guess History sidebar (Stretch Feature SF8). Rendered after the submit
+# handler so it includes the guess made on this rerun.
+st.sidebar.divider()
+st.sidebar.subheader("📜 Guess History")
+if not st.session_state.history:
+    st.sidebar.caption("No guesses yet.")
+else:
+    for i, past in enumerate(st.session_state.history, start=1):
+        summary = describe_guess(past, st.session_state.secret)
+        st.sidebar.write(f"{i}. {summary}")
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")

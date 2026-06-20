@@ -133,3 +133,25 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
         return current_score - 5
 
     return current_score
+
+
+def describe_guess(guess, secret):
+    """Return a short, player-facing summary of a past guess.
+
+    Used to render the Guess History sidebar. Integer guesses are
+    annotated with the hint they earned (via :func:`check_guess`);
+    non-integer entries (rejected input that was still recorded) are
+    flagged as invalid.
+
+    Args:
+        guess: A past entry from the history list (int or raw string).
+        secret: The secret number to compare integer guesses against.
+
+    Returns:
+        A display string such as ``"40 — 📈 Go HIGHER!"`` or
+        ``"abc — ⚠️ invalid"``.
+    """
+    if isinstance(guess, int):
+        _, message = check_guess(guess, secret)
+        return f"{guess} — {message}"
+    return f"{guess} — ⚠️ invalid"
