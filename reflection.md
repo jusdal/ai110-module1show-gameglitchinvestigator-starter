@@ -39,7 +39,8 @@ Document at least 3 bugs you found. Add rows as needed.
   Claude Code suggested flipping the hints associated with an incorrect guess and was correct. I accepted these edits and the game worked as expected. I also added two tests to the pytest file and made sure it passed those as well as my manual testing in the web app.
 
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
-  I suspected Hard mode's range was wrong and should go up to ~1000. I checked this against the code in get_range_for_difficulty and confirmed Hard is intentionally 1–50 with fewer guesses, so my hunch was a false alarm (#NOTABUG). It reminded me to verify a suspected bug against the actual code before "fixing" it.
+  When I was fixing the "Attempts left" off-by-one, Claude Code first suggested patching only the display — changing the info line to subtract one more (`attempt_limit - st.session_state.attempts - 1`) so the counter would read 8 at the start. I tried it and the displayed number looked right, but I traced the code and found the real cause was `st.session_state.attempts = 1` combined with `attempts += 1` at the top of the submit handler. The display-only patch just masked the symptom: the game still cut me off a guess early and the score's `attempt_number` was still inflated. I rejected it and instead set the starting attempts to 0 in all three spots (the init path, the `not in session_state` guard, and the New Game reset). I verified by starting a Normal game (counter shows 8) and confirming I actually got all 8 guesses before "Out of attempts!".
+  (Separately, I also second-guessed myself on Hard mode's range — I suspected it should go up to ~1000, but checked `get_range_for_difficulty` and confirmed Hard is intentionally 1–50 with fewer guesses, so that one was a false alarm on my part, not an AI error: #NOTABUG.)
 
 ---
 
